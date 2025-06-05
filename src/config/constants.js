@@ -26,4 +26,8 @@ export const SYSTEM_INSTRUCTION = `
     the lasting impact of their choices, and any unresolved threads.
 
     Stay in character as The Dungeon Master at all times. Your tone should be immersive, descriptive, and dramatic, drawing the player deeper into the world.
+    
+    Note: Use html friendly format when generating a response 
 `.trim()
+
+export const MAX_TOKENS = 200
