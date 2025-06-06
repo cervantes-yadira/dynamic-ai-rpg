@@ -1,23 +1,29 @@
-window.onload = () => {
-    sessionStorage.setItem('isPlaying', false)
+import { toggleStartButton, createChatInterface, appendChatReponse } from "./helpers.js"
+
+sessionStorage.setItem('isPlaying', false)
+
+const startBtn = document.getElementById('start-button')
+
+startBtn.addEventListener('click', (e) => {
+    sessionStorage.setItem('isPlaying', true)
+    toggleStartButton(startBtn)
+    createChatInterface()
+
     const submitBtn = document.getElementById('submit-user-input')
     const textInputElement = document.getElementById('user-text-input')
     const url = `http://localhost:4509/api`
 
-    if(sessionStorage.getItem('isPlaying')) {
-        submitBtn.addEventListener('click', (e) => {
-            const userInput = textInputElement.value
+    submitBtn.addEventListener('click', (e) => {
+        const userInput = textInputElement.value
 
-            if(userInput) {
-                sendUserRequest(e, userInput, url)
-                textInputElement.value = ''
-            } else {
-                alert('Please submit your answer')
-            }
-        })
-    } else {
-    }
-}
+        if(userInput) {
+            sendUserRequest(e, userInput, url)
+            textInputElement.value = ''
+        } else {
+            alert('Please submit your answer')
+        }
+    })
+})
 
 const sendUserRequest = async (event, userInput, url) => {
     const chatWindow = document.getElementById('chat-window')
@@ -53,25 +59,3 @@ const sendUserRequest = async (event, userInput, url) => {
 //         }
 //     }
 // }
-
-const appendChatReponse = (chatWindow, response, type) => {
-    const row = document.createElement('div')
-    const col = document.createElement('div')
-    const p = document.createElement('p')
-
-    row.className = 'row'
-
-    if (type === 'user') {
-        col.className = 'col-12 d-flex justify-content-end'
-        p.classList.add('bg-primary', 'text-white', 'p-2', 'rounded', 'response')
-    } else {
-        col.className = 'col-12 d-flex justify-content-start'
-        p.classList.add('bg-light', 'text-dark', 'p-2', 'rounded', 'response')
-    }
-
-    p.innerHTML = response
-
-    col.appendChild(p)
-    row.appendChild(col)
-    chatWindow.appendChild(row)
-}
