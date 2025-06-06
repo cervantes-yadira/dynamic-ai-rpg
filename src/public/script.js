@@ -1,22 +1,27 @@
 window.onload = () => {
+    sessionStorage.setItem('isPlaying', false)
     const submitBtn = document.getElementById('submit-user-input')
     const textInputElement = document.getElementById('user-text-input')
     const url = `http://localhost:4509/api`
 
-    submitBtn.addEventListener('click', (e) => {
-        const userInput = textInputElement.value
+    if(sessionStorage.getItem('isPlaying')) {
+        submitBtn.addEventListener('click', (e) => {
+            const userInput = textInputElement.value
 
-        if(userInput) {
-            sendUserRequest(e, userInput, url)
-        } else {
-            alert('Please submit your answer')
-        }
-    })
+            if(userInput) {
+                sendUserRequest(e, userInput, url)
+                textInputElement.value = ''
+            } else {
+                alert('Please submit your answer')
+            }
+        })
+    } else {
+    }
 }
 
 const sendUserRequest = async (event, userInput, url) => {
     const chatWindow = document.getElementById('chat-window')
-    appendChatReponse(chatWindow, userInput, 'user-response')
+    appendChatReponse(chatWindow, userInput, 'user')
     try {
         let response = await fetch(url, {
             method: 'POST',
@@ -25,7 +30,7 @@ const sendUserRequest = async (event, userInput, url) => {
         })
 
         response = await response.json()
-        appendChatReponse(chatWindow, response.result, 'system-response')
+        appendChatReponse(chatWindow, response.result, 'system')
     } catch (error) {
         console.log(error)
     }
@@ -49,9 +54,24 @@ const sendUserRequest = async (event, userInput, url) => {
 //     }
 // }
 
-const appendChatReponse = (chatWindow, response, className) => {
+const appendChatReponse = (chatWindow, response, type) => {
+    const row = document.createElement('div')
+    const col = document.createElement('div')
     const p = document.createElement('p')
-    p.className = className
+
+    row.className = 'row'
+
+    if (type === 'user') {
+        col.className = 'col-12 d-flex justify-content-end'
+        p.classList.add('bg-primary', 'text-white', 'p-2', 'rounded', 'response')
+    } else {
+        col.className = 'col-12 d-flex justify-content-start'
+        p.classList.add('bg-light', 'text-dark', 'p-2', 'rounded', 'response')
+    }
+
     p.innerHTML = response
-    chatWindow.appendChild(p)
+
+    col.appendChild(p)
+    row.appendChild(col)
+    chatWindow.appendChild(row)
 }

@@ -11,18 +11,25 @@
 </head>
 <body>
     <header class="container-md">
-        <h1>Dynamic RPG powered by gpt o3-mini</h1>
+        <h1>Dynamic RPG</h1>
         <p class="lead">
             Step into a new world with this AI driven, text-based RPG. Simply click
             <em>"Go on an adventure!"</em> to get started.
         </p>
     </header>
     <main class="container-md">
-        <section id="chat-window"></section>
-        <form>
-            <div class="input-group">
-                <label class="form-label" for="user-text-input">What say you?</label>
-                <textarea id="user-text-input" name="user-text-input" class="form-control"></textarea>
+        <section id="chat-window" class="border border-bottom-0"></section>
+        <form id="user-response-form">
+            <div class="mb-3 border border-top-0">
+                <label for="user-text-input" class="form-label" hidden>What say you?</label>
+                <textarea 
+                    id="user-text-input" 
+                    name="user-text-input" 
+                    class="form-control mb-4" 
+                    rows="4" 
+                    placeholder="What say you?"
+                >
+                </textarea>
             </div>
             <button id="submit-user-input" class="btn btn-primary" type="button">Send</button>
         </form>
