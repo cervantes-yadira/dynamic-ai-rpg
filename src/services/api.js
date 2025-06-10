@@ -1,7 +1,9 @@
 import { Groq } from 'groq-sdk'
+import { GoogleGenAI, Modality } from "@google/genai"
 import dotenv from 'dotenv'
 import { marked } from 'marked'
-import { SYSTEM_INSTRUCTION, MAX_TOKENS } from '../config/constants.js'
+import fs from 'fs/promises'
+import { SYSTEM_INSTRUCTION, MAX_TOKENS, IMAGE_PROMPT_OUTLINE, IMAGE_PATH } from '../config/constants.js'
 
 dotenv.config()
 
@@ -33,7 +35,12 @@ async function handleDungeonPrompt(playerInput) {
       temperature: 0.7
     })
 
-    result = response.choices?.[0]?.message?.content || 'No response generated.'
+    if(response.choices?.[0]?.message?.content) {
+      result = response.choices?.[0]?.message?.content
+      await generateImage(result)
+    } else {
+      result = 'No response generated.'
+    }
   } catch (error) {
     console.error(error)
     return 'An error occurred while generating a response.'
@@ -44,13 +51,42 @@ async function handleDungeonPrompt(playerInput) {
   return marked(result)
 }
 
-const retrieveWindow = () => {
-  const userChat = chat.user;
-  const systemChat = chat.system;
-  const userSlice = userChat.slice(-2);
-  const systemSlice = systemChat.slice(-2);
+async function generateImage(prompt) {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
-  const messages = [];
+    const contents = IMAGE_PROMPT_OUTLINE + prompt
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash-preview-image-generation",
+      contents: contents,
+      config: {
+        responseModalities: [Modality.TEXT, Modality.IMAGE],
+      },
+    })
+
+    for (const part of response.candidates[0].content.parts) {
+      // Based on the part type, either show the text or save the image
+      if (part.text) {
+        console.log(part.text)
+      } else if (part.inlineData) {
+        const imageData = part.inlineData.data
+        const buffer = Buffer.from(imageData, "base64")
+        await fs.writeFile(IMAGE_PATH, buffer)
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const retrieveWindow = () => {
+  const userChat = chat.user
+  const systemChat = chat.system
+  const userSlice = userChat.slice(-2)
+  const systemSlice = systemChat.slice(-2)
+
+  const messages = []
 
   for (let i = 0; i < Math.max(systemSlice.length, userSlice.length); i++) {
     if (systemSlice[i]) {

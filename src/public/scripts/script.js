@@ -1,4 +1,4 @@
-import { toggleStartButton, createChatInterface, appendChatReponse } from "./helpers.js"
+import { toggleStartButton, createChatInterface, appendChatReponse, displayImage } from "./helpers.js"
 
 sessionStorage.setItem('isPlaying', false)
 
@@ -37,6 +37,7 @@ const sendUserRequest = async (event, userInput, url) => {
 
         response = await response.json()
         appendChatReponse(chatWindow, response.result, 'system')
+        displayImage()
     } catch (error) {
         console.log(error)
     }

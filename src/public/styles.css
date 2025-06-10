@@ -1,4 +1,5 @@
 #chat-window {
+    background-color: white;
     width: 95%;
     overflow-y: scroll;
     height: 55vh;
@@ -19,6 +20,7 @@
 }
 
 #user-response-form {
+    background-color: white;
     margin-top: 0;
     width: 95%;
 
@@ -31,4 +33,13 @@
 #user-text-input {
     resize: none;
     width: 95%;
+}
+
+.img-bg {
+    background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
+        url('./images/scenery-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #cccccc;
 }

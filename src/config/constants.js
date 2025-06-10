@@ -32,3 +32,7 @@ export const SYSTEM_INSTRUCTION = `
     - The context contains the last 2 messages, use it to generate the narrative.
     - Respond concisely and clearly. Keep answers under ${MAX_TOKENS} tokens.
 `.trim()
+
+export const IMAGE_PROMPT_OUTLINE = 'Generate an image of scenery based on the following description:'.trim()
+
+export const IMAGE_PATH = './src/public/images/scenery-image.png'

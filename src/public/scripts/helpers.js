@@ -85,4 +85,8 @@ export const appendChatReponse = (chatWindow, response, type) => {
     row.appendChild(col)
     chatWindow.appendChild(row)
 }
-    
+
+export const displayImage = () => {
+  const body = document.getElementsByTagName('body')[0]
+  body.className = 'img-bg'
+}
