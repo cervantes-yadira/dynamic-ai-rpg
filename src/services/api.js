@@ -8,14 +8,10 @@ import { SYSTEM_INSTRUCTION, MAX_TOKENS, IMAGE_PROMPT_OUTLINE, IMAGE_PATH } from
 dotenv.config()
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
-const chat = {
-  system: [],
-  user: []
-}
 
-async function handleDungeonPrompt(playerInput) {
+async function handleDungeonPrompt(playerInput, chat) {
   let result
-  const context = retrieveWindow()
+  const context = retrieveWindow(chat)
 
   try {
     const response = await groq.chat.completions.create({
@@ -46,8 +42,6 @@ async function handleDungeonPrompt(playerInput) {
     return 'An error occurred while generating a response.'
   }
 
-  appendChat('user', playerInput)
-  appendChat('system', result)
   return marked(result)
 }
 
@@ -80,7 +74,7 @@ async function generateImage(prompt) {
   }
 }
 
-const retrieveWindow = () => {
+const retrieveWindow = chat => {
   const userChat = chat.user
   const systemChat = chat.system
   const userSlice = userChat.slice(-2)
@@ -98,10 +92,6 @@ const retrieveWindow = () => {
   }
 
   return messages
-}
-
-const appendChat = (role, response) => {
-  role === 'user' ? chat.user.push(response) : chat.system.push(response)
 }
 
 export default handleDungeonPrompt

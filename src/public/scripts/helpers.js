@@ -90,3 +90,13 @@ export const displayImage = () => {
   const body = document.getElementsByTagName('body')[0]
   body.className = 'img-bg'
 }
+
+export const appendChat = (chat, role, response) => {
+  if (!chat || typeof chat !== 'object') {
+      chat = { system: [], user: [] }
+  }
+
+  role === 'user' ? chat.user.push(response) : chat.system.push(response)
+
+  return chat
+}
