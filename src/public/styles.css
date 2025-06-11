@@ -1,38 +1,44 @@
+body {
+    min-height: 100vh;
+    width: 100%;
+}
+
 #chat-window {
-    background-color: white;
+    backdrop-filter: blur(10px);
     width: 95%;
+    margin: auto;
     overflow-y: scroll;
-    height: 55vh;
+    height: 60vh;
 }
 
 .response {
     max-width: 50%;
-    width: auto;
-    margin: 0;
-}
-
-.user-response {
-    float: right;
-}
-
-.system-response {
-    float: left;
+    /* width: auto; */
+    margin: 1rem;
 }
 
 #user-response-form {
-    background-color: white;
+    backdrop-filter: blur(10px);
     margin-top: 0;
     width: 95%;
+    margin: auto;
 
     div {
-        display: flex;
-        justify-content: center;
+        position: relative;
     }
 }
 
 #user-text-input {
     resize: none;
     width: 95%;
+    margin: auto;
+    height: auto;
+}
+
+#submit-user-input {
+    position: absolute;
+    bottom: 60px;
+    right: 40px;
 }
 
 .img-bg {
@@ -41,5 +47,10 @@
         url('./images/scenery-image.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #cccccc;
+    background-position: center bottom;
+}
+
+#start-button {
+    width: 20%;
+    margin: auto;
 }

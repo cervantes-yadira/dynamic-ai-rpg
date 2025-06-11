@@ -15,7 +15,7 @@ export const createChatInterface = () => {
 
   // Create form div
   const formDiv = document.createElement('div')
-  formDiv.className = 'mb-3 border border-top-0'
+  formDiv.className = 'border border-top-0'
 
   // Create label
   const label = document.createElement('label')
@@ -34,16 +34,16 @@ export const createChatInterface = () => {
   textarea.placeholder = 'What say you?'
   formDiv.appendChild(textarea)
 
-  // Append form div to form
-  form.appendChild(formDiv)
-
   // Create submit button
   const button = document.createElement('button')
   button.id = 'submit-user-input'
   button.className = 'btn btn-primary'
   button.type = 'button'
   button.textContent = 'Send'
-  form.appendChild(button)
+  formDiv.appendChild(button)
+
+  // Append form div to form
+  form.appendChild(formDiv)
 
   // Append form to main
   main.appendChild(form)
