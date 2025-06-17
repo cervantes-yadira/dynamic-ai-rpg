@@ -1,4 +1,4 @@
-import { toggleStartButton, createChatInterface, appendChatReponse, displayImage, appendChat } from "./helpers.js"
+import { toggleStartButton, createChatInterface, appendChatReponse, displayImage, appendChat, refreshChat } from "./helpers.js"
 
 const startBtn = document.getElementById('start-button')
 const isPlaying = sessionStorage.getItem('isPlaying')
@@ -7,6 +7,9 @@ const isPlaying = sessionStorage.getItem('isPlaying')
 if (isPlaying === "true") {
     toggleStartButton(startBtn)
     createChatInterface()
+    if(sessionStorage.getItem('chatLog') !== null) {
+        refreshChat(JSON.parse(sessionStorage.getItem('chatLog')))
+    }
     setupSubmitHandler()
 }
 
@@ -41,7 +44,7 @@ function setupSubmitHandler() {
 
 const sendUserRequest = async (event, userInput, url) => {
     const chatWindow = document.getElementById('chat-window')
-    appendChatReponse(chatWindow, userInput, 'user')
+    appendChatReponse(chatWindow, userInput, true)
 
     try {
         let rawChatLog = sessionStorage.getItem('chatLog')
@@ -63,7 +66,7 @@ const sendUserRequest = async (event, userInput, url) => {
         chatLog = appendChat(chatLog, 'system', systemResponse)
         sessionStorage.setItem('chatLog', JSON.stringify(chatLog))
 
-        appendChatReponse(chatWindow, systemResponse, 'system')
+        appendChatReponse(chatWindow, systemResponse, false)
         displayImage()
     } catch (error) {
         console.error("Failed to send user request:", error)
@@ -71,20 +74,3 @@ const sendUserRequest = async (event, userInput, url) => {
 
     event.preventDefault()
 }
-
-// TODO reimplement for page refresh
-
-// const refreshChat = (chatLog) => {
-//     const chatWindow = document.getElementById('chat-window')
-//     const { system = [], user = [] } = chatLog
-//     const maxLength = Math.max(system.length, user.length)
-
-//     for (let i = 0; i < maxLength; i++) {
-//         if (i < user.length) {
-//             appendChatReponse(chatWindow, user[i], 'user-response')
-//         }
-//         if (i < system.length) {
-//             appendChatReponse(chatWindow, system[i], 'system-response')
-//         }
-//     }
-// }

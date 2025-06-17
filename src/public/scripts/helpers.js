@@ -64,14 +64,14 @@ export const toggleStartButton = (btn) => {
   }
 }
 
-export const appendChatReponse = (chatWindow, response, type) => {
+export const appendChatReponse = (chatWindow, response, isUser) => {
     const row = document.createElement('div')
     const col = document.createElement('div')
     const p = document.createElement('p')
 
     row.className = 'row'
 
-    if (type === 'user') {
+    if (isUser) {
         col.className = 'col-12 d-flex justify-content-end'
         p.classList.add('bg-primary', 'text-white', 'p-2', 'rounded', 'response')
     } else {
@@ -99,4 +99,19 @@ export const appendChat = (chat, role, response) => {
   role === 'user' ? chat.user.push(response) : chat.system.push(response)
 
   return chat
+}
+
+export const refreshChat = chatLog => {
+    const chatWindow = document.getElementById('chat-window')
+    const { system = [], user = [] } = chatLog
+    const maxLength = Math.max(system.length, user.length)
+
+    for (let i = 0; i < maxLength; i++) {
+        if (i < user.length) {
+            appendChatReponse(chatWindow, user[i], true)
+        }
+        if (i < system.length) {
+            appendChatReponse(chatWindow, system[i], false)
+        }
+    }
 }
