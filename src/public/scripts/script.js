@@ -69,6 +69,7 @@ const sendUserRequest = async (event, userInput, url) => {
 
         chatLog = appendChat(chatLog, 'system', systemResponse)
         sessionStorage.setItem('chatLog', JSON.stringify(chatLog))
+        sessionStorage.setItem('numTurns', numTurns)
 
         appendChatReponse(chatWindow, systemResponse, false)
         displayImage()
