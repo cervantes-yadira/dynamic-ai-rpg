@@ -1,7 +1,7 @@
 export const createChatInterface = () => {
   // Create main
   const main = document.createElement('main')
-  main.className = 'container-md'
+  // main.className = 'container-md'
 
   // Create section for chat window
   const section = document.createElement('section')
@@ -30,7 +30,6 @@ export const createChatInterface = () => {
   textarea.id = 'user-text-input'
   textarea.name = 'user-text-input'
   textarea.className = 'form-control mb-4'
-  textarea.rows = 4
   textarea.placeholder = 'What say you?'
   formDiv.appendChild(textarea)
 

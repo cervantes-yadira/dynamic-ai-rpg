@@ -4,20 +4,45 @@ body, html {
     margin: 0;
 }
 
+header {
+    height: 20vh;
+    
+    p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+main {
+    height: 75vh;
+    margin: auto;
+}
+
+#start-button {
+    position: absolute;
+    top: 50vh;
+}
+
 #chat-window {
     backdrop-filter: blur(10px);
     width: 95%;
     margin: auto;
     overflow-y: scroll;
-    height: 60vh;
+    height: 80%;
+
+    div.row {
+        margin: 0.5rem 0;
+    }
 }
 
 .response {
     max-width: 50%;
-    margin: 1rem;
 }
 
+/* User response form */
 #user-response-form {
+    height: 20%;
     backdrop-filter: blur(8px);
     margin-top: 0;
     width: 95%;
@@ -25,37 +50,38 @@ body, html {
 
     div {
         position: relative;
+        height: 100%;
+
+        #user-text-input {
+            resize: none;
+            width: 95%;
+            margin: auto;
+            height: 93%;
+            padding-right: 10%;
+        }
+
+        #submit-user-input {
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+            right: 5%
+        }
     }
 }
 
-#user-text-input {
-    resize: none;
-    width: 95%;
-    margin: auto;
-    height: auto;
-}
-
-#submit-user-input {
-    position: absolute;
-    bottom: 60px;
-    right: 40px;
-}
-
-body {
-    position: relative;
+.img-bg {
     background-image:
         linear-gradient(to bottom, #ffffff 0%, transparent 45%),
         url("./images/scenery-image.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom;
 
     /* Fade in */
     animation: fadeIn 2s ease forwards;
     opacity: 0;
 }
 
-body::after {
+img-bg::after {
     content:'';
     position: absolute;
     top: 0;
@@ -71,16 +97,10 @@ body::after {
 header, 
 .d-flex, 
 #chat-window {
-    position: relative;
     z-index: 2;
 }
 
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
-}
-
-#start-button {
-    position: absolute;
-    bottom: 50vh;
 }

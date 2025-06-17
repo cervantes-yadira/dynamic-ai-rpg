@@ -18,6 +18,7 @@ startBtn.addEventListener('click', () => {
     sessionStorage.setItem('isPlaying', "true")
     toggleStartButton(startBtn)
     sessionStorage.setItem('chatLog', JSON.stringify({ system: [], user: [] }))
+    sessionStorage.setItem('numTurns', '0')
     createChatInterface()
     setupSubmitHandler()
 })
@@ -51,6 +52,8 @@ const sendUserRequest = async (event, userInput, url) => {
         let rawChatLog = sessionStorage.getItem('chatLog')
         let chatLog = rawChatLog ? JSON.parse(rawChatLog) : { system: [], user: [] }
         chatLog = appendChat(chatLog, 'user', userInput)
+        const numTurns = parseInt(sessionStorage.getItem('numTurns')) + 1
+        userInput += `number of turns: ${numTurns}`
 
         let response = await fetch(url, {
             method: 'POST',
