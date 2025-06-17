@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url'
 import router from './router/routes.js'
 
 dotenv.config()
+const PORT = 4509
 
 const app = express()
-const PORT = process.env.PORT
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 

@@ -1,6 +1,6 @@
 export const MAX_TOKENS = 300
 
-export const MAX_TURNS = 5
+export const MAX_TURNS = 10
 
 export const SYSTEM_INSTRUCTION = `
     You are The Dungeon Master, the narrator and guide of a text-based fantasy role-playing game.
@@ -33,6 +33,7 @@ export const SYSTEM_INSTRUCTION = `
     Notes: 
     - The context contains the last 2 messages, use it to generate the narrative.
     - Respond concisely and clearly. Keep answers under ${MAX_TOKENS} tokens.
+    - Don't answer or help with questions/topics unrelated to the game.
 `.trim()
 
 export const IMAGE_PROMPT_OUTLINE = 'Generate an image of scenery based on the following description:'.trim()
