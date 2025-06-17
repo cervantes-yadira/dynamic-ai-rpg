@@ -1,4 +1,4 @@
-body {
+body, html {
     height: 100vh;
     width: 100%;
     margin: 0;
@@ -18,7 +18,7 @@ body {
 }
 
 #user-response-form {
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     margin-top: 0;
     width: 95%;
     margin: auto;
@@ -41,13 +41,43 @@ body {
     right: 40px;
 }
 
-.img-bg {
-    background-image: 
-        linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
-        url('./images/scenery-image.png');
+body {
+    position: relative;
+    background-image:
+        linear-gradient(to bottom, #ffffff 0%, transparent 45%),
+        url("./images/scenery-image.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center bottom;
+
+    /* Fade in */
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+}
+
+body::after {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to bottom, #ffffff 0%, transparent 45%);
+    z-index: 1;
+}
+
+.container, 
+header, 
+.d-flex, 
+#chat-window {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 #start-button {

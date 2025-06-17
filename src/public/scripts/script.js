@@ -9,6 +9,7 @@ if (isPlaying === "true") {
     createChatInterface()
     if(sessionStorage.getItem('chatLog') !== null) {
         refreshChat(JSON.parse(sessionStorage.getItem('chatLog')))
+        displayImage()
     }
     setupSubmitHandler()
 }
